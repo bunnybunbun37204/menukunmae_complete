@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.app.Dialog;
 
+import com.wfh.menukunmae.tools.Utils;
+
 public class Main4Activity extends AppCompatActivity {
 
     private View decorView;
@@ -17,8 +19,8 @@ public class Main4Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main4);
-
         super.onCreate(savedInstanceState);
+
         myDialog = new Dialog(this);
         decorView = getWindow().getDecorView();
         decorView.setOnSystemUiVisibilityChangeListener(Visibility -> {

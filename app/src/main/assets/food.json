@@ -1,0 +1,29 @@
+[
+      {
+        "food_name": "ไก่ทอด",
+        "food_ingredients": [
+          "ไก่",
+          "เครื่องหมัก"
+        ],
+        "cooking_method": [
+          "1. ทำไรใส่ไป",
+          "2. ทำไรใส่ไป"
+        ],
+        "food_cals": 245.9,
+        "food_tutorial": "link",
+        "food_img": "link ภาพ เดี๋ยวกูทำลิ้งภาพเองมึงหาภาพแนบไว้ให้ก็พอ"
+      },
+      {
+        "food_name": "ไข่ดาว",
+        "food_ingredients": [
+          "ไข่"
+        ],
+        "cooking_method": [
+          "1. ทำไรใส่ไป",
+          "2. ทำไรใส่ไป"
+        ],
+        "food_cals": 123.0,
+        "food_tutorial": "link",
+        "food_img": "link ภาพ เดี๋ยวกูทำลิ้งภาพเองมึงหาภาพแนบไว้ให้ก็พอ"
+      }
+]

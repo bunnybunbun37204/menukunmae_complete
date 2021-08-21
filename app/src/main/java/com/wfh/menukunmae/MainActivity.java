@@ -5,18 +5,38 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
 import android.opengl.Visibility;
 
+import com.wfh.menukunmae.classes.Food;
+import com.wfh.menukunmae.tools.Utils;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private View decorView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        String jsonFileString = Utils.getJsonFromAssets(getApplicationContext(), "food.json");
+
+        Gson gson = new Gson();
+        Type listUserType = new TypeToken<List<Food>>() { }.getType();
+
+        List<Food> foods = gson.fromJson(jsonFileString, listUserType);
+        for (int i = 0; i < foods.size(); i++) {
+            Log.i("data", "> Item " + i + "\n" + foods.get(i));
+        }
 
         Button button = findViewById(R.id.button3);
         button.setOnClickListener(view ->  {

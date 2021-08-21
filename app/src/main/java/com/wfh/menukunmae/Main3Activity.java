@@ -9,10 +9,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 
-import com.wfh.menukunmae.tools.SerializeObject;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.wfh.menukunmae.tools.SerializeObject;
 
 
 public class Main3Activity extends AppCompatActivity {
