@@ -10,16 +10,23 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.app.Dialog;
 
-import com.wfh.menukunmae.tools.Utils;
+import com.wfh.menukunmae.classes.Food;
+
+import java.util.List;
 
 public class Main4Activity extends AppCompatActivity {
 
     private View decorView;
+    private List<Food> foods;
     Dialog myDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main4);
         super.onCreate(savedInstanceState);
+
+        foods = MainActivity.getFoods();
+
+        Log.i("LOG-INFO","TEST : "+foods.get(0).getFood_name());
 
         myDialog = new Dialog(this);
         decorView = getWindow().getDecorView();

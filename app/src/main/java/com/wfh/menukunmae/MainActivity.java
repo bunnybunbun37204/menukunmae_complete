@@ -4,14 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
-import android.opengl.Visibility;
 
 import com.wfh.menukunmae.classes.Food;
+import com.wfh.menukunmae.classes.Ingredients;
 import com.wfh.menukunmae.tools.Utils;
 
 import com.google.gson.Gson;
@@ -23,20 +22,15 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private View decorView;
+    private static List<Food> foods;
+    private static List<Ingredients> ingredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String jsonFileString = Utils.getJsonFromAssets(getApplicationContext(), "food.json");
 
-        Gson gson = new Gson();
-        Type listUserType = new TypeToken<List<Food>>() { }.getType();
-
-        List<Food> foods = gson.fromJson(jsonFileString, listUserType);
-        for (int i = 0; i < foods.size(); i++) {
-            Log.i("data", "> Item " + i + "\n" + foods.get(i));
-        }
+        initialize();
 
         Button button = findViewById(R.id.button3);
         button.setOnClickListener(view ->  {
@@ -72,4 +66,27 @@ public class MainActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
     }
 
+    private void initialize(){
+        String jsonFileStringFood = Utils.getJsonFromAssets(getApplicationContext(), "food.json");
+        String jsonFileStringIngredients = Utils.getJsonFromAssets(getApplicationContext(), "Ingredients.json");
+
+
+        Gson gson = new Gson();
+        Type listFoodType = new TypeToken<List<Food>>() { }.getType();
+        Type listIngredientsType = new TypeToken<List<Ingredients>>() { }.getType();
+
+        foods = gson.fromJson(jsonFileStringFood, listFoodType);
+        ingredients = gson.fromJson(jsonFileStringIngredients, listIngredientsType);
+
+        Log.i("LOG-INFO-FOOD","TEST " + foods.get(0).getFood_name());
+        Log.i("LOG-INFO","JSON-TEST : " + ingredients.get(0).getIngredients());
+    }
+
+    public static List<Food> getFoods(){
+        return foods;
+    }
+
+    public static List<Ingredients> getIngredients() {
+        return ingredients;
+    }
 }
