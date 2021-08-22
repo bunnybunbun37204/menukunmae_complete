@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.EditText;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.wfh.menukunmae.tools.SerializeObject;
 

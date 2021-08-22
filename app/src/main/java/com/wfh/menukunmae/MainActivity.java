@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.content.Intent;
 
 import com.wfh.menukunmae.classes.Food;
-import com.wfh.menukunmae.classes.Ingredients;
 import com.wfh.menukunmae.tools.Utils;
 
 import com.google.gson.Gson;
@@ -23,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
     private View decorView;
     private static List<Food> foods;
-    private static List<Ingredients> ingredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,26 +65,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initialize(){
+
         String jsonFileStringFood = Utils.getJsonFromAssets(getApplicationContext(), "food.json");
-        String jsonFileStringIngredients = Utils.getJsonFromAssets(getApplicationContext(), "Ingredients.json");
-
-
         Gson gson = new Gson();
         Type listFoodType = new TypeToken<List<Food>>() { }.getType();
-        Type listIngredientsType = new TypeToken<List<Ingredients>>() { }.getType();
-
         foods = gson.fromJson(jsonFileStringFood, listFoodType);
-        ingredients = gson.fromJson(jsonFileStringIngredients, listIngredientsType);
 
         Log.i("LOG-INFO-FOOD","TEST " + foods.get(0).getFood_name());
-        Log.i("LOG-INFO","JSON-TEST : " + ingredients.get(0).getIngredients());
     }
 
     public static List<Food> getFoods(){
         return foods;
     }
 
-    public static List<Ingredients> getIngredients() {
-        return ingredients;
-    }
 }
