@@ -10,6 +10,7 @@ import android.view.View;
 public class Main5Activity extends AppCompatActivity {
 
     private View decorView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,16 +23,18 @@ public class Main5Activity extends AppCompatActivity {
 
         });
     }
+
     //ไฟล์นี้ไว้ปิด Navigator bar
     @Override
-    public void onWindowFocusChanged(boolean hasFocus){
+    public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if(hasFocus){
+        if (hasFocus) {
             decorView.setSystemUiVisibility(hideSystemBars());
         }
     }
+
     //ไฟล์นี้ไว้ปิด Navigator bar
-    private int hideSystemBars(){
+    private int hideSystemBars() {
         return View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN

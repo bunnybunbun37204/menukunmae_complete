@@ -9,6 +9,8 @@
         <entry key="app/src/main/res/layout/activity_main4.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/activity_main5.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/custom_dialog.xml" value="0.19010416666666666" />
+        <entry key="app/src/main/res/layout/custom_list_item.xml" value="0.15443840579710144" />
+        <entry key="app/src/main/res/layout/list_item.xml" value="0.14945652173913043" />
       </map>
     </option>
   </component>

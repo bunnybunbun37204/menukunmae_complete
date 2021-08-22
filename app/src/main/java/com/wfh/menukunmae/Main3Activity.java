@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.wfh.menukunmae.tools.SerializeObject;
 
@@ -17,23 +20,35 @@ import com.wfh.menukunmae.tools.SerializeObject;
 public class Main3Activity extends AppCompatActivity {
 
     private View decorView;
-    private EditText ingredientInput;
+    private AutoCompleteTextView ingredientInput;
+    private ListView listIngredientView;
     private String ingredient;
     private ArrayList<String> ingredientsList;
+    private List<String> ingredients = MainActivity.getIngredientList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
+        Log.i("LOG-INFO", "TEST : " + ingredients);
+        listIngredientView = (ListView) findViewById(R.id.list_ingredient_item);
+
         try {
             ingredientsList = getIngredientsList(getApplicationContext());
-        }
-        catch (Exception e){
-            Log.d("LOG-DEBUGGER","NONE");
+        } catch (Exception e) {
+            Log.d("LOG-DEBUGGER", "NONE");
             ingredientsList = new ArrayList<String>();
         }
-        Log.i("LOG-INFO","TEST : "+ingredientsList);
-        ingredientInput = (EditText) findViewById(R.id.ingredientInput);
+        ArrayAdapter<String> ingredientApapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, ingredientsList);
+
+        listIngredientView.setAdapter(ingredientApapter);
+
+        ingredientInput = (AutoCompleteTextView) findViewById(R.id.ingredientInput);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+                R.layout.custom_list_item, R.id.text_view_list_item, ingredients);
+        ingredientInput.setAdapter(arrayAdapter);
+
         ingredientInput.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
@@ -41,16 +56,16 @@ public class Main3Activity extends AppCompatActivity {
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     // Perform action on key press
-                    Log.d("LOG-DEBUGGER","KEY PRESS");
+                    Log.d("LOG-DEBUGGER", "KEY PRESS");
 
                     ingredient = ingredientInput.getText().toString();
 
-                    if(ingredient != "" || ingredient == null){
+                    if (ingredient != "" || ingredient == null) {
                         ingredientsList.add(ingredient);
                         saveIngredientsList(getApplicationContext(), ingredientsList);
                     }
 
-                    Log.d("LOG-DEBUGGER","TEXT : "+ingredientsList);
+                    Log.d("LOG-DEBUGGER", "TEXT : " + ingredientsList);
                     return true;
                 }
                 return false;
@@ -98,14 +113,14 @@ public class Main3Activity extends AppCompatActivity {
         return output;
     }
 
-    private void saveIngredientsList(Context context, ArrayList<String> ingredientsList){
+    private void saveIngredientsList(Context context, ArrayList<String> ingredientsList) {
         String ser = SerializeObject.objectToString(ingredientsList);
         if (ser != null && !ser.equalsIgnoreCase("")) {
             SerializeObject.WriteSettings(context, ser, "saveddata.dat");
         } else {
             SerializeObject.WriteSettings(context, "", "saveddata.dat");
         }
-        Log.d("LOG-DEBUGGER","SAVED");
+        Log.d("LOG-DEBUGGER", "SAVED");
     }
 
 }
