@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,56 +22,19 @@ public class Main3Activity extends AppCompatActivity {
 
     private View decorView;
     private AutoCompleteTextView ingredientInput;
-    private ListView listIngredientView;
+    private static ListView listIngredientView;
     private String ingredient;
-    private ArrayList<String> ingredientsList;
+    private static ArrayList<String> ingredientsList;
+    private static ArrayAdapter<String> arrayAdapter, ingredientApapter;
     private List<String> ingredients = MainActivity.getIngredientList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
-        Log.i("LOG-INFO", "TEST : " + ingredients);
-        listIngredientView = (ListView) findViewById(R.id.list_ingredient_item);
 
-        try {
-            ingredientsList = getIngredientsList(getApplicationContext());
-        } catch (Exception e) {
-            Log.d("LOG-DEBUGGER", "NONE");
-            ingredientsList = new ArrayList<String>();
-        }
-        ArrayAdapter<String> ingredientApapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, ingredientsList);
-
-        listIngredientView.setAdapter(ingredientApapter);
-
-        ingredientInput = (AutoCompleteTextView) findViewById(R.id.ingredientInput);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
-                R.layout.custom_list_item, R.id.text_view_list_item, ingredients);
-        ingredientInput.setAdapter(arrayAdapter);
-
-        ingredientInput.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                // If the event is a key-down event on the "enter" button
-                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
-                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    // Perform action on key press
-                    Log.d("LOG-DEBUGGER", "KEY PRESS");
-
-                    ingredient = ingredientInput.getText().toString();
-
-                    if (ingredient != "" || ingredient == null) {
-                        ingredientsList.add(ingredient);
-                        saveIngredientsList(getApplicationContext(), ingredientsList);
-                    }
-
-                    Log.d("LOG-DEBUGGER", "TEXT : " + ingredientsList);
-                    return true;
-                }
-                return false;
-            }
-        });
+        initialize();
+        inputMethod();
 
         //ไฟล์นี้ไว้ปิด Navigator bar
         decorView = getWindow().getDecorView();
@@ -121,6 +85,64 @@ public class Main3Activity extends AppCompatActivity {
             SerializeObject.WriteSettings(context, "", "saveddata.dat");
         }
         Log.d("LOG-DEBUGGER", "SAVED");
+    }
+
+    private void initialize(){
+        listIngredientView = (ListView) findViewById(R.id.list_ingredient_item);
+
+        try {
+            ingredientsList = getIngredientsList(getApplicationContext());
+        } catch (Exception e) {
+            Log.d("LOG-DEBUGGER", "NONE");
+            ingredientsList = new ArrayList<String>();
+        }
+        ingredientApapter = new ArrayAdapter<String>(this,
+                R.layout.custom_list_item_ingredients, R.id.list_ing_component, ingredientsList);
+
+        listIngredientView.setAdapter(ingredientApapter);
+    }
+
+    private void inputMethod(){
+        ingredientInput = (AutoCompleteTextView) findViewById(R.id.ingredientInput);
+        arrayAdapter = new ArrayAdapter<String>(this,
+                R.layout.custom_list_item, R.id.text_view_list_item, ingredients);
+        ingredientInput.setAdapter(arrayAdapter);
+
+        ingredientInput.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                // If the event is a key-down event on the "enter" button
+                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Perform action on key press
+                    ingredient = ingredientInput.getText().toString();
+
+                    if (ingredient != "" || ingredient == null) {
+                        ingredientsList.add(ingredient);
+                        saveIngredientsList(getApplicationContext(), ingredientsList);
+                    }
+
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    // function to remove an item given its index in the grocery list.
+    public static void removeItem(int i) {
+        //makeToast("Removed: " + ingredientsList.get(i));
+        ingredientsList.remove(i);
+        listIngredientView.setAdapter(ingredientApapter);
+    }
+
+    // function to make a Toast given a string
+    static Toast t;
+
+    private static void makeToast(String s, Context context) {
+        if (t != null) t.cancel();
+        t = Toast.makeText(context, s, Toast.LENGTH_SHORT);
+        t.show();
     }
 
 }
