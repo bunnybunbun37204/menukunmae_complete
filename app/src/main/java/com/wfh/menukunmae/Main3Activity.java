@@ -25,7 +25,7 @@ public class Main3Activity extends AppCompatActivity {
     private static ListView listIngredientView;
     private String ingredient;
     private static ArrayList<String> ingredientsList;
-    private static ArrayAdapter<String> arrayAdapter, ingredientApapter;
+    private static ArrayAdapter<String> arrayAdapter, ingredientAdapter;
     private List<String> ingredients = MainActivity.getIngredientList();
 
     @Override
@@ -96,10 +96,10 @@ public class Main3Activity extends AppCompatActivity {
             Log.d("LOG-DEBUGGER", "NONE");
             ingredientsList = new ArrayList<String>();
         }
-        ingredientApapter = new ArrayAdapter<String>(this,
+        ingredientAdapter = new ArrayAdapter<String>(this,
                 R.layout.custom_list_item_ingredients, R.id.list_ing_component, ingredientsList);
 
-        listIngredientView.setAdapter(ingredientApapter);
+        listIngredientView.setAdapter(ingredientAdapter);
     }
 
     private void inputMethod(){
@@ -107,7 +107,7 @@ public class Main3Activity extends AppCompatActivity {
         arrayAdapter = new ArrayAdapter<String>(this,
                 R.layout.custom_list_item, R.id.text_view_list_item, ingredients);
         ingredientInput.setAdapter(arrayAdapter);
-        ingredientApapter = new ArrayAdapter<String>(this,
+        ingredientAdapter = new ArrayAdapter<String>(this,
                 R.layout.custom_list_item_ingredients, R.id.list_ing_component, ingredientsList);
         ingredientInput.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -121,7 +121,7 @@ public class Main3Activity extends AppCompatActivity {
                     if (ingredient != "" || ingredient == null) {
                         ingredientsList.add(ingredient);
                         saveIngredientsList(getApplicationContext(), ingredientsList);
-                        listIngredientView.setAdapter(ingredientApapter);
+                        listIngredientView.setAdapter(ingredientAdapter);
                     }
 
                     return true;
