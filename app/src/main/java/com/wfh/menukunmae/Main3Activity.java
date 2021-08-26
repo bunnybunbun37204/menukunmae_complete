@@ -107,7 +107,8 @@ public class Main3Activity extends AppCompatActivity {
         arrayAdapter = new ArrayAdapter<String>(this,
                 R.layout.custom_list_item, R.id.text_view_list_item, ingredients);
         ingredientInput.setAdapter(arrayAdapter);
-
+        ingredientApapter = new ArrayAdapter<String>(this,
+                R.layout.custom_list_item_ingredients, R.id.list_ing_component, ingredientsList);
         ingredientInput.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
@@ -120,6 +121,7 @@ public class Main3Activity extends AppCompatActivity {
                     if (ingredient != "" || ingredient == null) {
                         ingredientsList.add(ingredient);
                         saveIngredientsList(getApplicationContext(), ingredientsList);
+                        listIngredientView.setAdapter(ingredientApapter);
                     }
 
                     return true;
@@ -127,22 +129,6 @@ public class Main3Activity extends AppCompatActivity {
                 return false;
             }
         });
-    }
-
-    // function to remove an item given its index in the grocery list.
-    public static void removeItem(int i) {
-        //makeToast("Removed: " + ingredientsList.get(i));
-        ingredientsList.remove(i);
-        listIngredientView.setAdapter(ingredientApapter);
-    }
-
-    // function to make a Toast given a string
-    static Toast t;
-
-    private static void makeToast(String s, Context context) {
-        if (t != null) t.cancel();
-        t = Toast.makeText(context, s, Toast.LENGTH_SHORT);
-        t.show();
     }
 
 }
