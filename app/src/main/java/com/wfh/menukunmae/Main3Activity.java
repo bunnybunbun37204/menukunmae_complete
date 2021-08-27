@@ -124,10 +124,20 @@ public class Main3Activity extends AppCompatActivity {
                     // Perform action on key press
                     ingredient = ingredientInput.getText().toString();
 
-                    if (ingredient != "" || ingredient == null) {
-                        ingredientsList.add(ingredient);
-                        saveIngredientsList(getApplicationContext(), ingredientsList);
-                        listIngredientView.setAdapter(ingredientAdapter);
+                    if(!ingredientsList.contains(ingredient)){
+                        if (ingredients.contains(ingredient)) {
+                            ingredientsList.add(ingredient);
+                            saveIngredientsList(getApplicationContext(), ingredientsList);
+                            listIngredientView.setAdapter(ingredientAdapter);
+                        }
+
+                        else {
+                            MiscellaneousTools.makeToast("กรุณากรอกวัตถุดิบที่มีอยู่",getApplicationContext());
+                        }
+                    }
+
+                    else {
+                        MiscellaneousTools.makeToast("กรุณาไม่กรอกวัตถุดิบซ้ำ", getApplicationContext());
                     }
 
                     return true;
