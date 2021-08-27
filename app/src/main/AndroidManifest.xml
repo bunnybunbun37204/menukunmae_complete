@@ -11,6 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Menukunmae">
+
+        <activity
+            android:name=".AnymorePls01Activity"
+            android:exported="true" />
+
         <activity
             android:name=".Main5Activity"
             android:exported="true" />
