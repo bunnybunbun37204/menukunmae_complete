@@ -81,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
         }.getType();
 
         foods = gson.fromJson(jsonFileStringFood, listFoodType);
+
+        Log.i("LOG-INFO","FOOD : "+foods.size());
+
         ingredients = gson.fromJson(jsonFileStringIngredients, listIngredientsType);
 
         ingredientList = ingredients.get(0).getIngredients();

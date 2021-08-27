@@ -7,14 +7,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.wfh.menukunmae.tools.MiscellaneousTools;
 import com.wfh.menukunmae.tools.SerializeObject;
 
 
@@ -35,6 +39,8 @@ public class Main3Activity extends AppCompatActivity {
 
         initialize();
         inputMethod();
+        clickItem();
+        removeItem();
 
         //ไฟล์นี้ไว้ปิด Navigator bar
         decorView = getWindow().getDecorView();
@@ -63,7 +69,7 @@ public class Main3Activity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
     }
 
-    private ArrayList<String> getIngredientsList(Context context) {
+    public static ArrayList<String> getIngredientsList(Context context) {
         ArrayList<String> output = new ArrayList<String>();
         String ser = SerializeObject.ReadSettings(context, "saveddata.dat");
         if (ser != null && !ser.equalsIgnoreCase("")) {
@@ -131,4 +137,29 @@ public class Main3Activity extends AppCompatActivity {
         });
     }
 
+    private void removeItem() {
+        listIngredientView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int pos, long id) {
+                MiscellaneousTools.makeToast("Removed: " + ingredientsList.get(pos), getApplicationContext());
+                ingredientsList.remove(pos);
+                saveIngredientsList(getApplicationContext(), ingredientsList);
+                listIngredientView.setAdapter(ingredientAdapter);
+                return false;
+            }
+        });
+    }
+
+    private void clickItem() {
+       listIngredientView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           @Override
+           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               MiscellaneousTools.makeToast("กดค้างเพื่อลบเมนู", getApplicationContext());
+           }
+       });
+    }
+
+    public static void setIngredientsList(ArrayList<String> ingredientsList) {
+        Main3Activity.ingredientsList = ingredientsList;
+    }
 }

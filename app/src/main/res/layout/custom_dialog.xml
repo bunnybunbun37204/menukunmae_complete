@@ -38,15 +38,15 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="120dp"
         android:layout_marginTop="183dp"
         android:layout_marginEnd="66dp"
         android:layout_marginBottom="87dp"
         android:fontFamily="@font/fridaymeduim"
         android:text="สเต็กวัว"
-        android:textSize="45dp"
         android:textColor="#FDD26E"
-        android:layout_centerHorizontal="true"/>
+        android:textSize="45dp" />
 
     <TextView
         android:id="@+id/textView4"

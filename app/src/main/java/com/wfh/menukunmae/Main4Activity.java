@@ -13,13 +13,17 @@ import android.app.Dialog;
 
 import com.wfh.menukunmae.classes.Food;
 import com.wfh.menukunmae.tools.LoadImage;
+import com.wfh.menukunmae.tools.MiscellaneousTools;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main4Activity extends AppCompatActivity {
 
     private View decorView;
-    private List<Food> foods;
+    private Food random_food;
+    private  List<Food> foods;
+    private ArrayList<String> ingredients;
     Dialog myDialog;
 
     @Override
@@ -27,9 +31,6 @@ public class Main4Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main4);
         super.onCreate(savedInstanceState);
 
-        foods = MainActivity.getFoods();
-
-        Log.i("LOG-INFO", "TEST : " + foods.get(0).getFood_name());
 
         myDialog = new Dialog(this);
         decorView = getWindow().getDecorView();
@@ -59,13 +60,16 @@ public class Main4Activity extends AppCompatActivity {
     }
 
     public void ShowPopup(View view) {
-        final String URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Prayuth_2018_cropped.jpg/220px-Prayuth_2018_cropped.jpg";
-        TextView txtclose;
+        randomFood();
+        final String URL = random_food.getFood_img();
+        TextView txtclose, textInfo;
         Button btnFollow;
         myDialog.setContentView(R.layout.custom_dialog);
         txtclose = (TextView) myDialog.findViewById(R.id.txtclose);
+        textInfo = (TextView) myDialog.findViewById(R.id.textViewx);
         btnFollow = (Button) myDialog.findViewById(R.id.btnFollow);
         showImageViaLink(URL);
+        textInfo.setText(random_food.getFood_name());
         txtclose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,5 +84,24 @@ public class Main4Activity extends AppCompatActivity {
         foodImage = (ImageView) myDialog.findViewById(R.id.foodImage);
         LoadImage loadImage = new LoadImage(foodImage);
         loadImage.execute(URL);
+    }
+
+    private void randomFood(){
+        foods = MainActivity.getFoods();
+        ingredients = new ArrayList<String>();
+
+        try {
+            ingredients = Main3Activity.getIngredientsList(getApplicationContext());
+            Log.d("LOG-DEBUGGER","PASS!!");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        List<Food> selected_foods = MiscellaneousTools.searchFoodByUsingSubset(ingredients, foods);
+        random_food = MiscellaneousTools.getFoodRandomly(selected_foods);
+
+        Log.i("LOG-INFO", "SELECTED_FOOD : " + selected_foods);
+        Log.i("LOG-INFO", "RANDOM_FOOD : " + random_food);
     }
 }

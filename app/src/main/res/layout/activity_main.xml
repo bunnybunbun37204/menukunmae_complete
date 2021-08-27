@@ -18,7 +18,7 @@
         android:fontFamily="@font/fridaymeduim"
         android:text="เมนูคุณแม่"
         android:textAllCaps="false"
-        android:textColor="#FFFFFF"
+        android:textColor="#ffff"
         android:textSize="30dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView"

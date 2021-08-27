@@ -22,40 +22,43 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 * */
 
-
 package com.wfh.menukunmae.tools;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.widget.ImageView;
+import android.content.Context;
+import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.InputStream;
+import com.wfh.menukunmae.classes.Food;
 
-public class LoadImage extends AsyncTask<String, Void, Bitmap> {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-    private ImageView imageView;
+public class MiscellaneousTools {
 
-    public LoadImage(ImageView imageView){
-        this.imageView = imageView;
+    // function to make a Toast given a string
+    private static Toast t;
+
+    public static void makeToast(String s, Context context) {
+        if (t != null) t.cancel();
+        t = Toast.makeText(context, s, Toast.LENGTH_SHORT);
+        t.show();
     }
 
-    @Override
-    public Bitmap doInBackground(String... strings) {
-        final String URL = strings[0];
-        Bitmap bitmap = null;
-        try (InputStream inputStream = new java.net.URL(URL).openStream()) {
-            bitmap = BitmapFactory.decodeStream(inputStream);
+    public static List<Food> searchFoodByUsingSubset(ArrayList<String> ingredients, List<Food> foodList){
+        List<Food> output = new ArrayList<Food>();
+        for(Food food : foodList) {
+            boolean result = ingredients.containsAll(food.getFood_ingredients());
+            if(result) {
+                output.add(food);
+            }
         }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-        return bitmap;
+        return output;
     }
 
-    @Override
-    public void onPostExecute(Bitmap bitmap) {
-        imageView.setImageBitmap(bitmap);
+    public static Food getFoodRandomly(List<Food> foodList) {
+        Random rand = new Random();
+        return foodList.get(rand.nextInt(foodList.size()));
     }
+
+
 }
