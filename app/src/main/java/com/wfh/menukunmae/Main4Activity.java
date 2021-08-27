@@ -2,6 +2,7 @@ package com.wfh.menukunmae;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -68,6 +69,10 @@ public class Main4Activity extends AppCompatActivity {
         txtclose = (TextView) myDialog.findViewById(R.id.txtclose);
         textInfo = (TextView) myDialog.findViewById(R.id.textViewx);
         btnFollow = (Button) myDialog.findViewById(R.id.btnFollow);
+        btnFollow.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        });
         showImageViaLink(URL);
         textInfo.setText(random_food.getFood_name());
         txtclose.setOnClickListener(new View.OnClickListener() {
