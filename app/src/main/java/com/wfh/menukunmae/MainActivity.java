@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
     private View decorView;
     private static List<Food> foods;
-    private static List<Ingredient> ingredients;
     private static List<String> ingredientList;
 
     @Override
@@ -84,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i("LOG-INFO","FOOD : "+foods.size());
 
-        ingredients = gson.fromJson(jsonFileStringIngredients, listIngredientsType);
+        List<Ingredient> ingredients = gson.fromJson(jsonFileStringIngredients, listIngredientsType);
 
         ingredientList = ingredients.get(0).getIngredients();
     }

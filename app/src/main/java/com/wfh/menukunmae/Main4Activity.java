@@ -23,8 +23,6 @@ public class Main4Activity extends AppCompatActivity {
 
     private View decorView;
     private Food random_food;
-    private  List<Food> foods;
-    private ArrayList<String> ingredients;
     Dialog myDialog;
 
     @Override
@@ -62,33 +60,39 @@ public class Main4Activity extends AppCompatActivity {
 
     public void ShowPopup(View view) {
         randomFood();
-        final String URL = random_food.getFood_img();
-        TextView txtclose, textInfo;
-        Button btnFollow;
-        myDialog.setContentView(R.layout.custom_dialog);
-        txtclose = (TextView) myDialog.findViewById(R.id.txtclose);
-        textInfo = (TextView) myDialog.findViewById(R.id.textViewx);
-        btnFollow = (Button) myDialog.findViewById(R.id.btnFollow);
-        btnFollow.setOnClickListener(v -> {
-            Intent intent = new Intent(this, AnymorePls01Activity.class);
-            startActivity(intent);
-        });
-        showImageViaLink(URL);
-        textInfo.setText(random_food.getFood_name());
-        txtclose.setOnClickListener(v -> myDialog.dismiss());
-        myDialog.show();
+        if(random_food != null){
+            final String URL = random_food.getFood_img();
+            TextView txtclose, textInfo;
+            Button btnFollow;
+            myDialog.setContentView(R.layout.custom_dialog);
+            txtclose = myDialog.findViewById(R.id.txtclose);
+            textInfo = myDialog.findViewById(R.id.textViewx);
+            btnFollow = myDialog.findViewById(R.id.btnFollow);
+            btnFollow.setOnClickListener(v -> {
+                Intent intent = new Intent(this, AnymorePls01Activity.class);
+                startActivity(intent);
+            });
+            showImageViaLink(URL);
+            textInfo.setText(random_food.getFood_name());
+            txtclose.setOnClickListener(v -> myDialog.dismiss());
+            myDialog.show();
+        }
+        else {
+            MiscellaneousTools.makeToast("ไม่พบรายการอาหาร",getApplicationContext());
+        }
+
     }
 
     private void showImageViaLink(String URL) {
         ImageView foodImage;
-        foodImage = (ImageView) myDialog.findViewById(R.id.foodImage);
+        foodImage = myDialog.findViewById(R.id.foodImage);
         LoadImage loadImage = new LoadImage(foodImage);
         loadImage.execute(URL);
     }
 
     private void randomFood(){
-        foods = MainActivity.getFoods();
-        ingredients = new ArrayList<String>();
+        List<Food> foods = MainActivity.getFoods();
+        ArrayList<String> ingredients = new ArrayList<String>();
 
         try {
             ingredients = Main3Activity.getIngredientsList(getApplicationContext());
@@ -99,7 +103,15 @@ public class Main4Activity extends AppCompatActivity {
         }
 
         List<Food> selected_foods = MiscellaneousTools.searchFoodByUsingSubset(ingredients, foods);
-        random_food = MiscellaneousTools.getFoodRandomly(selected_foods);
+        try {
+            random_food = MiscellaneousTools.getFoodRandomly(selected_foods);
+        }
+
+        catch (Exception e){
+            e.printStackTrace();
+            random_food = null;
+        }
+
 
         Log.i("LOG-INFO", "SELECTED_FOOD : " + selected_foods);
         Log.i("LOG-INFO", "RANDOM_FOOD : " + random_food);
