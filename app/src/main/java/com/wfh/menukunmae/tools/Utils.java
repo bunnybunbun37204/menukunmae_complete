@@ -81,5 +81,42 @@ public class Utils {
         return foodList.get(rand.nextInt(foodList.size()));
     }
 
+    public static float calculate_BMR(String gender, float weight, float height, int age) {
+        float bmr;
+        if(gender.equals("male")) {
+            bmr = 66 + (13.7f * weight) + (5 * height) - (6.8f * age);
+        }
+        else {
+            bmr = 665 + (9.6f * weight) + (1.8f * height) - (4.7f *age);
+        }
+        return bmr;
+    }
+
+    public static float calculate_Cals(float bmr, String activity) {
+        switch (activity){
+            case "nothing":
+                bmr *= 1.2f;
+                break;
+            case "little act":
+                bmr *= 1.375f;
+                break;
+            case "mid":
+                bmr *= 1.55f;
+                break;
+            case "hard":
+                bmr *= 1.725f;
+                break;
+            case "always":
+                bmr *= 1.9f;
+                break;
+            default:
+                bmr *= 1;
+                break;
+        }
+
+        return bmr;
+
+    }
+
 
 }
