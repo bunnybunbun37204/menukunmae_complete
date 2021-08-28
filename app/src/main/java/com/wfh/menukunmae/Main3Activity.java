@@ -10,27 +10,24 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.wfh.menukunmae.tools.MiscellaneousTools;
 import com.wfh.menukunmae.tools.SerializeObject;
+import com.wfh.menukunmae.tools.Utils;
 
 
 public class Main3Activity extends AppCompatActivity {
 
     private View decorView;
     private AutoCompleteTextView ingredientInput;
-    private static ListView listIngredientView;
+    private ListView listIngredientView;
     private String ingredient;
     private static ArrayList<String> ingredientsList;
-    private static ArrayAdapter<String> arrayAdapter, ingredientAdapter;
-    private List<String> ingredients = MainActivity.getIngredientList();
+    private static ArrayAdapter<String> ingredientAdapter;
+    private final List<String> ingredients = MainActivity.getIngredientList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +69,7 @@ public class Main3Activity extends AppCompatActivity {
     public static ArrayList<String> getIngredientsList(Context context) {
         ArrayList<String> output = new ArrayList<String>();
         String ser = SerializeObject.ReadSettings(context, "saveddata.dat");
-        if (ser != null && !ser.equalsIgnoreCase("")) {
+        if (!ser.equalsIgnoreCase("")) {
             Object obj = SerializeObject.stringToObject(ser);
             // Then cast it to your object and
             if (obj instanceof ArrayList) {
@@ -110,7 +107,7 @@ public class Main3Activity extends AppCompatActivity {
 
     private void inputMethod(){
         ingredientInput = (AutoCompleteTextView) findViewById(R.id.ingredientInput);
-        arrayAdapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
                 R.layout.custom_list_item, R.id.text_view_list_item, ingredients);
         ingredientInput.setAdapter(arrayAdapter);
         ingredientAdapter = new ArrayAdapter<String>(this,
@@ -132,12 +129,12 @@ public class Main3Activity extends AppCompatActivity {
                         }
 
                         else {
-                            MiscellaneousTools.makeToast("กรุณากรอกวัตถุดิบที่มีอยู่",getApplicationContext());
+                            Utils.makeToast("กรุณากรอกวัตถุดิบที่มีอยู่",getApplicationContext());
                         }
                     }
 
                     else {
-                        MiscellaneousTools.makeToast("กรุณาไม่กรอกวัตถุดิบซ้ำ", getApplicationContext());
+                        Utils.makeToast("กรุณาไม่กรอกวัตถุดิบซ้ำ", getApplicationContext());
                     }
 
                     return true;
@@ -151,7 +148,7 @@ public class Main3Activity extends AppCompatActivity {
         listIngredientView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int pos, long id) {
-                MiscellaneousTools.makeToast("Removed: " + ingredientsList.get(pos), getApplicationContext());
+                Utils.makeToast("Removed: " + ingredientsList.get(pos), getApplicationContext());
                 ingredientsList.remove(pos);
                 saveIngredientsList(getApplicationContext(), ingredientsList);
                 listIngredientView.setAdapter(ingredientAdapter);
@@ -164,7 +161,7 @@ public class Main3Activity extends AppCompatActivity {
        listIngredientView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
            @Override
            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               MiscellaneousTools.makeToast("กดค้างเพื่อลบเมนู", getApplicationContext());
+               Utils.makeToast("กดค้างเพื่อลบเมนู", getApplicationContext());
            }
        });
     }

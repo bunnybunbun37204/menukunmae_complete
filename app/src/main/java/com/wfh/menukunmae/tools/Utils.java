@@ -25,9 +25,15 @@ SOFTWARE.
 package com.wfh.menukunmae.tools;
 
 import android.content.Context;
+import android.widget.Toast;
+
+import com.wfh.menukunmae.classes.Food;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Utils {
 
@@ -49,4 +55,31 @@ public class Utils {
 
         return jsonString;
     }
+
+    // function to make a Toast given a string
+    private static Toast t;
+
+    public static void makeToast(String s, Context context) {
+        if (t != null) t.cancel();
+        t = Toast.makeText(context, s, Toast.LENGTH_SHORT);
+        t.show();
+    }
+
+    public static List<Food> searchFoodByUsingSubset(ArrayList<String> ingredients, List<Food> foodList){
+        List<Food> output = new ArrayList<Food>();
+        for(Food food : foodList) {
+            boolean result = ingredients.containsAll(food.getFood_ingredients());
+            if(result) {
+                output.add(food);
+            }
+        }
+        return output;
+    }
+
+    public static Food getFoodRandomly(List<Food> foodList) {
+        Random rand = new Random();
+        return foodList.get(rand.nextInt(foodList.size()));
+    }
+
+
 }

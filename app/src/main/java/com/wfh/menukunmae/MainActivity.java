@@ -34,11 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
         Button button = findViewById(R.id.button3);
         button.setOnClickListener(view -> {
-
             Intent intent = new Intent(this, Main2Activity.class);
-
             startActivity(intent);
-
         });
         //ไฟล์นี้ไว้ปิด Navigator bar
         decorView = getWindow().getDecorView();
