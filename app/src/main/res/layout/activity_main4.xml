@@ -4,41 +4,118 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".Main4Activity">
+
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/fridaymeduim"
+        android:text="กินอะไรกันดี"
+        android:textColor="#000000"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="204dp"
+        android:layout_height="217dp"
+        android:background="@drawable/rulet01"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintStart_toStartOf="@+id/button" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="207dp"
+        android:layout_height="218dp"
+        android:background="@drawable/rulet"
+        app:layout_constraintBottom_toTopOf="@+id/button_btn"
+        app:layout_constraintEnd_toEndOf="@+id/button_btn" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="0dp"
-        android:layout_height="74dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="47dp"
+        android:layout_marginEnd="47dp"
         android:background="@drawable/custome_button"
         android:fontFamily="@font/fridaymeduim"
         android:text="กินอะไรกันดี"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_btn"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.578" />
+        tools:ignore="SpUsage"
+        android:onClick="ShowPopupleft"/>
 
     <Button
         android:id="@+id/button_btn"
         android:layout_width="0dp"
-        android:layout_height="74dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="48dp"
+
+        android:layout_marginEnd="1dp"
         android:background="@drawable/cuztom_button"
         android:fontFamily="@font/fridaymeduim"
+        android:onClick="ShowPopup"
         android:text="กินอะไรกันดีในตู้เย็น"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.579"
-        android:onClick="ShowPopup"/>
+        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintTop_toTopOf="parent" />
 
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="203dp"
+        android:layout_height="337dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/yellow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView8"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="205dp"
+        android:layout_height="336dp"
+        android:layout_marginStart="212dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="209dp"
+        android:layout_height="332dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="@font/fridaymeduim"
+        android:text="สุ่มอาหารที่เมื่อเราไม่รู้จะทานอะไร สามารถสุ่ม โดย
+                         กดปุ่ม (กินอะไรกันดี)"
+        android:textColor="#ffff"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imageView7" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="0dp"
+        android:layout_height="330dp"
+        android:fontFamily="@font/fridaymeduim"
+        android:text="สุ่มอาหารที่เมื่อเราไม่รู้จะทานอะไร
+         แต่มีวัตถุดิบในตู้เย็น          สามารถสุ่ม โดย
+                            กดปุ่ม (กินอะไรกันดีในตู้เย็น)"
+        android:textColor="#ffff"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView7" />
 </androidx.constraintlayout.widget.ConstraintLayout>

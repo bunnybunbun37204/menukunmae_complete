@@ -10,10 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +23,11 @@ public class Main3Activity extends AppCompatActivity {
 
     private View decorView;
     private AutoCompleteTextView ingredientInput;
-    private static ListView listIngredientView;
+    private ListView listIngredientView;
     private String ingredient;
     private static ArrayList<String> ingredientsList;
-    private static ArrayAdapter<String> arrayAdapter, ingredientAdapter;
-    private List<String> ingredients = MainActivity.getIngredientList();
+    private static ArrayAdapter<String> ingredientAdapter;
+    private final List<String> ingredients = MainActivity.getIngredientList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +69,7 @@ public class Main3Activity extends AppCompatActivity {
     public static ArrayList<String> getIngredientsList(Context context) {
         ArrayList<String> output = new ArrayList<String>();
         String ser = SerializeObject.ReadSettings(context, "saveddata.dat");
-        if (ser != null && !ser.equalsIgnoreCase("")) {
+        if (!ser.equalsIgnoreCase("")) {
             Object obj = SerializeObject.stringToObject(ser);
             // Then cast it to your object and
             if (obj instanceof ArrayList) {
@@ -110,7 +107,7 @@ public class Main3Activity extends AppCompatActivity {
 
     private void inputMethod(){
         ingredientInput = (AutoCompleteTextView) findViewById(R.id.ingredientInput);
-        arrayAdapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
                 R.layout.custom_list_item, R.id.text_view_list_item, ingredients);
         ingredientInput.setAdapter(arrayAdapter);
         ingredientAdapter = new ArrayAdapter<String>(this,
