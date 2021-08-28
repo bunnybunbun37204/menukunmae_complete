@@ -14,7 +14,7 @@ import android.app.Dialog;
 
 import com.wfh.menukunmae.classes.Food;
 import com.wfh.menukunmae.tools.LoadImage;
-import com.wfh.menukunmae.tools.MiscellaneousTools;
+import com.wfh.menukunmae.tools.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
 public class Main4Activity extends AppCompatActivity {
 
     private View decorView;
-    private Food random_food;
+    private Food random_food, random_food_all;
     Dialog myDialog;
 
     @Override
@@ -59,7 +59,7 @@ public class Main4Activity extends AppCompatActivity {
 
     public void ShowPopup(View view) {
         randomFood();
-        if(random_food != null){
+        if (random_food != null) {
             final String URL = random_food.getFood_img();
             TextView txtclose, textInfo;
             Button btnFollow;
@@ -75,11 +75,32 @@ public class Main4Activity extends AppCompatActivity {
             textInfo.setText(random_food.getFood_name());
             txtclose.setOnClickListener(v -> myDialog.dismiss());
             myDialog.show();
+        } else {
+            Utils.makeToast("ไม่พบรายการอาหาร", getApplicationContext());
         }
-        else {
-            MiscellaneousTools.makeToast("ไม่พบรายการอาหาร",getApplicationContext());
-        }
+    }
 
+    public void ShowPopupleft(View view) {
+        randomAllFood();
+        if (random_food_all != null) {
+            final String URL = random_food_all.getFood_img();
+            TextView txtclose, textInfo;
+            Button btnFollow;
+            myDialog.setContentView(R.layout.custom_dialogleft);
+            txtclose = myDialog.findViewById(R.id.txtclose01);
+            textInfo = myDialog.findViewById(R.id.textInfo);
+            btnFollow = myDialog.findViewById(R.id.btnFollow01);
+            btnFollow.setOnClickListener(v -> {
+                Intent intent = new Intent(this, AnymorePls01Activity.class);
+                startActivity(intent);
+            });
+            showImageViaLinkAllFood(URL);
+            textInfo.setText(random_food_all.getFood_name());
+            txtclose.setOnClickListener(v -> myDialog.dismiss());
+            myDialog.show();
+        } else {
+            Utils.makeToast("ไม่พบรายการอาหาร", getApplicationContext());
+        }
     }
 
     private void showImageViaLink(String URL) {
@@ -89,30 +110,41 @@ public class Main4Activity extends AppCompatActivity {
         loadImage.execute(URL);
     }
 
-    private void randomFood(){
+    private void showImageViaLinkAllFood(String URL) {
+        ImageView foodImage;
+        foodImage = myDialog.findViewById(R.id.foodImage01);
+        LoadImage loadImage = new LoadImage(foodImage);
+        loadImage.execute(URL);
+    }
+
+    private void randomFood() {
         List<Food> foods = MainActivity.getFoods();
         ArrayList<String> ingredients = new ArrayList<String>();
 
         try {
             ingredients = Main3Activity.getIngredientsList(getApplicationContext());
-            Log.d("LOG-DEBUGGER","PASS!!");
-        }
-        catch (Exception e){
+            Log.d("LOG-DEBUGGER", "PASS!!");
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        List<Food> selected_foods = MiscellaneousTools.searchFoodByUsingSubset(ingredients, foods);
+        List<Food> selected_foods = Utils.searchFoodByUsingSubset(ingredients, foods);
         try {
-            random_food = MiscellaneousTools.getFoodRandomly(selected_foods);
-        }
-
-        catch (Exception e){
+            random_food = Utils.getFoodRandomly(selected_foods);
+        } catch (Exception e) {
             e.printStackTrace();
             random_food = null;
         }
+    }
 
+    private void randomAllFood() {
+        List<Food> foods = MainActivity.getFoods();
 
-        Log.i("LOG-INFO", "SELECTED_FOOD : " + selected_foods);
-        Log.i("LOG-INFO", "RANDOM_FOOD : " + random_food);
+        try {
+            random_food_all = Utils.getFoodRandomly(foods);
+        } catch (Exception e) {
+            e.printStackTrace();
+            random_food_all = null;
+        }
     }
 }
