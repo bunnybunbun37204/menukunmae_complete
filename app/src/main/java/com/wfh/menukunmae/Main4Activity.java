@@ -14,7 +14,7 @@ import android.app.Dialog;
 
 import com.wfh.menukunmae.classes.Food;
 import com.wfh.menukunmae.tools.LoadImage;
-import com.wfh.menukunmae.tools.Utils;
+import com.wfh.menukunmae.tools.MiscellaneousTools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
 public class Main4Activity extends AppCompatActivity {
 
     private View decorView;
-    private Food random_food, random_food01;
+    private Food random_food;
     Dialog myDialog;
 
     @Override
@@ -71,61 +71,22 @@ public class Main4Activity extends AppCompatActivity {
                 Intent intent = new Intent(this, AnymorePls01Activity.class);
                 startActivity(intent);
             });
-            showImageViaLinkRandomDialog(URL);
+            showImageViaLink(URL);
             textInfo.setText(random_food.getFood_name());
             txtclose.setOnClickListener(v -> myDialog.dismiss());
             myDialog.show();
         }
         else {
-            Utils.makeToast("ไม่พบรายการอาหาร",getApplicationContext());
+            MiscellaneousTools.makeToast("ไม่พบรายการอาหาร",getApplicationContext());
         }
 
     }
 
-    public void ShowPopupleft(View view) {
-        randomAllFood();
-        if(random_food != null){
-            final String URL = random_food.getFood_img();
-            TextView txtclose01, textInfo;
-            Button btnFollow01;
-            myDialog.setContentView(R.layout.custom_dialogleft);
-            txtclose01 = (TextView) myDialog.findViewById(R.id.txtclose01);
-            btnFollow01 = (Button) myDialog.findViewById(R.id.btnFollow01);
-            textInfo = (TextView) myDialog.findViewById(R.id.textInfo);
-            txtclose01.setOnClickListener(v -> myDialog.dismiss());
-            showImageViaLinkDialog(URL);
-            textInfo.setText(random_food.getFood_name());
-            myDialog.show();
-        }
-
-        else {
-            Utils.makeToast("ไม่พบรายการอาหาร",getApplicationContext());
-        }
-
-    }
-
-    private void showImageViaLinkRandomDialog(String URL) {
-        ImageView imageView = myDialog.findViewById(R.id.foodImage);
-        LoadImage loadImage = new LoadImage(imageView);
-        try {
-            loadImage.execute(URL);
-            Log.d("LOG-DEBUGGER","MSG : SUCKZZEED");
-        }
-        catch (Exception e){
-            Log.d("LOG-DEBUGGER","MSG : "+e.getMessage());
-        }
-    }
-
-    private void showImageViaLinkDialog(String URL) {
-        ImageView imageView = myDialog.findViewById(R.id.foodImage01);
-        LoadImage loadImage = new LoadImage(imageView);
-        try {
-            loadImage.execute(URL);
-            Log.d("LOG-DEBUGGER","MSG : SUCKZZEED");
-        }
-        catch (Exception e){
-            Log.d("LOG-DEBUGGER","MSG : "+e.getMessage());
-        }
+    private void showImageViaLink(String URL) {
+        ImageView foodImage;
+        foodImage = myDialog.findViewById(R.id.foodImage);
+        LoadImage loadImage = new LoadImage(foodImage);
+        loadImage.execute(URL);
     }
 
     private void randomFood(){
@@ -140,27 +101,18 @@ public class Main4Activity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        List<Food> selected_foods = Utils.searchFoodByUsingSubset(ingredients, foods);
+        List<Food> selected_foods = MiscellaneousTools.searchFoodByUsingSubset(ingredients, foods);
         try {
-            random_food01 = Utils.getFoodRandomly(selected_foods);
-        }
-
-        catch (Exception e){
-            e.printStackTrace();
-            random_food01 = null;
-        }
-    }
-
-    private void randomAllFood(){
-        List<Food> foods = MainActivity.getFoods();
-        try {
-            random_food = Utils.getFoodRandomly(foods);
-            Log.d("LOG-DEBUGGER","PASS");
+            random_food = MiscellaneousTools.getFoodRandomly(selected_foods);
         }
 
         catch (Exception e){
             e.printStackTrace();
             random_food = null;
         }
+
+
+        Log.i("LOG-INFO", "SELECTED_FOOD : " + selected_foods);
+        Log.i("LOG-INFO", "RANDOM_FOOD : " + random_food);
     }
 }
