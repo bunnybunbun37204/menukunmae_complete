@@ -38,7 +38,6 @@ public class Main4Activity extends AppCompatActivity {
                 decorView.setSystemUiVisibility(hideSystemBars());
 
         });
-        Log.d("LOG-DEBUGGER", "CREATE");
     }
 
     @Override
