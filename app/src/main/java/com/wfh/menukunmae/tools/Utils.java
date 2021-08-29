@@ -65,11 +65,11 @@ public class Utils {
         t.show();
     }
 
-    public static List<Food> searchFoodByUsingSubset(ArrayList<String> ingredients, List<Food> foodList){
+    public static List<Food> searchFoodByUsingSubset(ArrayList<String> ingredients, List<Food> foodList) {
         List<Food> output = new ArrayList<Food>();
-        for(Food food : foodList) {
+        for (Food food : foodList) {
             boolean result = ingredients.containsAll(food.getFood_ingredients());
-            if(result) {
+            if (result) {
                 output.add(food);
             }
         }
@@ -83,17 +83,16 @@ public class Utils {
 
     public static float calculate_BMR(String gender, float weight, float height, int age) {
         float bmr;
-        if(gender.equals("male")) {
+        if (gender.equals("male")) {
             bmr = 66 + (13.7f * weight) + (5 * height) - (6.8f * age);
-        }
-        else {
-            bmr = 665 + (9.6f * weight) + (1.8f * height) - (4.7f *age);
+        } else {
+            bmr = 665 + (9.6f * weight) + (1.8f * height) - (4.7f * age);
         }
         return bmr;
     }
 
     public static float calculate_Cals(float bmr, String activity) {
-        switch (activity){
+        switch (activity) {
             case "nothing":
                 bmr *= 1.2f;
                 break;
