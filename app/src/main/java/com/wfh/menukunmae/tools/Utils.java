@@ -96,7 +96,7 @@ public class Utils {
             case "nothing":
                 bmr *= 1.2f;
                 break;
-            case "little act":
+            case "little":
                 bmr *= 1.375f;
                 break;
             case "mid":

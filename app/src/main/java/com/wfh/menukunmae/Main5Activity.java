@@ -18,7 +18,8 @@ import com.wfh.menukunmae.tools.Utils;
 public class Main5Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private View decorView;
-    Dialog myDialog;
+    private Dialog myDialog;
+    private String genderString, weightString, heightString, activityString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,10 +88,13 @@ public class Main5Activity extends AppCompatActivity implements AdapterView.OnIt
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if(parent.getSelectedItem().toString().equals("เพศชาย") || parent.getSelectedItem().toString().equals("เพศหญิง")){
-            Utils.makeToast("GENDER "+ parent.getSelectedItem().toString(), getApplicationContext());
+            genderString = parent.getSelectedItem().toString();
+            Utils.makeToast("เพศ "+ genderString, getApplicationContext());
+
         }
         else {
-            Utils.makeToast("ACTIVITY + "+parent.getSelectedItem().toString(), getApplicationContext());
+            activityString = parent.getSelectedItem().toString();
+            Utils.makeToast("กิจกรรม + "+activityString, getApplicationContext());
         }
 
     }
@@ -105,5 +109,34 @@ public class Main5Activity extends AppCompatActivity implements AdapterView.OnIt
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    private String convertString(String str){
+        String output = "";
+        switch (str) {
+            case "เพศชาย":
+                output = "male";
+                break;
+            case "เพศหญิง":
+                output = "female";
+                break;
+            case "นั่งทำงานอยู่กับที่ และไม่ได้ออกกำลังกายเลย":
+                output = "nothing";
+                break;
+            case "ออกกำลังกายหรือเล่นกีฬาเล็กน้อย ประมาณอาทิตย์ละ 1–3 วัน":
+                output = "little";
+                break;
+            case "ออกกำลังกายหรือเล่นกีฬาปานกลาง ประมาณอาทิตย์ละ 3–5 วัน":
+                output = "mid";
+                break;
+            case "ออกกำลังกายหรือเล่นกีฬาอย่างหนัก ประมาณอาทิตย์ละ 6–7 วัน":
+                output = "hard";
+                break;
+            case "ออกกำลังกายหรือเล่นกีฬาอย่างหนักทุกวันเช้าเย็น":
+                output = "always";
+                break;
+
+        }
+        return output;
     }
 }
