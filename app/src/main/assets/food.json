@@ -35,7 +35,7 @@
         "3. ใส่แครอตและแป้งข้าวโพดผสมน้ำลงไปให้น้ำข้นนิด ๆ พอเดือดอีกครั้งปิดไฟ นำไปราดบนเต้าหู้ โรยด้วยต้นหอมซอย พร้อมเสิร์ฟ"
       ],
       "food_cals": 320,
-      "food_img": "https://sv1.picz.in.th/images/2021/08/26/CW6KnZ.jpg",
+      "food_img": "https://sv1.picz.in.th/images/2021/08/26/CW6KnZ.jpg"
     },
     {
       "food_name": "เห็ดฟางผัด",
@@ -1036,5 +1036,5 @@
       ],
       "food_cals": 800,
       "food_img": "https://sv1.picz.in.th/images/2021/08/29/CY4TZk.jpg"
-    },
+    }
 ]

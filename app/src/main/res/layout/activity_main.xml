@@ -19,7 +19,7 @@
         android:text="เมนูคุณแม่"
         android:textAllCaps="false"
         android:textColor="#ffff"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView"
         app:layout_constraintEnd_toEndOf="parent"

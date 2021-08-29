@@ -113,8 +113,14 @@ public class Main4Activity extends AppCompatActivity {
     private void showImageViaLinkAllFood(String URL) {
         ImageView foodImage;
         foodImage = myDialog.findViewById(R.id.foodImage01);
-        LoadImage loadImage = new LoadImage(foodImage);
-        loadImage.execute(URL);
+        try {
+            LoadImage loadImage = new LoadImage(foodImage);
+            loadImage.execute(URL);
+            Log.d("LOAD-IMAGE-DEBUGGER","PASS");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void randomFood() {

@@ -14,6 +14,10 @@
         android:allowBackup="true">
 
         <activity
+            android:name=".Leftanymorepls"
+            android:exported="true" />
+
+        <activity
             android:name=".AnymorePls01Activity"
             android:exported="true" />
 

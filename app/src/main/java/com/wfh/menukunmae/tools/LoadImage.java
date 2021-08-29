@@ -35,7 +35,7 @@ import java.io.InputStream;
 
 public class LoadImage extends AsyncTask<String, Void, Bitmap> {
 
-    private ImageView imageView;
+    private final ImageView imageView;
 
     public LoadImage(ImageView imageView){
         this.imageView = imageView;
