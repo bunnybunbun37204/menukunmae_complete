@@ -9,7 +9,7 @@ public class Food {
     private float food_cals;
     private List<String> food_vol;
     private String food_img;
-    private String food_tutorial;
+    private String tutorial;
 
     public void setFood_name(String food_name){
         this.food_name = food_name;
@@ -59,12 +59,12 @@ public class Food {
         this.food_vol = food_vol;
     }
 
-    public void setFood_tutorial(String food_tutorial) {
-        this.food_tutorial = food_tutorial;
+    public void setFood_tutorial(String tutorial) {
+        this.tutorial = tutorial;
     }
 
     public String getFood_tutorial() {
-        return food_tutorial;
+        return tutorial;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class Food {
                 ", food_cals=" + food_cals +
                 ", food_vol=" + food_vol +
                 ", food_img=" + food_img +
-                "tutorial" + food_tutorial +
+                ", tutorial=" + tutorial +
                 '}';
     }
 }

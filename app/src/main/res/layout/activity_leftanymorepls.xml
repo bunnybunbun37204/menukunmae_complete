@@ -134,17 +134,20 @@
     </LinearLayout>
 
 
-    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-        android:id="@+id/youtube_view"
-        android:layout_width="343dp"
-        android:layout_height="173dp"
-        app:autoPlay="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView9"
-        app:layout_constraintVertical_bias="0.765"
-        app:showYouTubeButton="false"
-        app:videoId="qzcGfN9S_QY" />
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youtube_view"
+            android:layout_width="343dp"
+            android:layout_height="173dp"
+            app:autoPlay="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9"
+            app:layout_constraintVertical_bias="0.765"
+            app:showYouTubeButton="false"
+            app:showFullScreenButton="true"
+            app:videoId="qzcGfN9S_QY" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

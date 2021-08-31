@@ -1,5 +1,6 @@
 package com.wfh.menukunmae;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
@@ -11,6 +12,7 @@ import android.widget.ListView;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.wfh.menukunmae.tools.Utils;
 
@@ -52,7 +54,8 @@ public class AnymorePls01Activity extends AppCompatActivity {
             cooking_method_string = Main4Activity.getRandom_food_all().getCooking_method();
             link = Main4Activity.getRandom_food_all().getFood_tutorial();
         }
-
+        Log.i("FOOD-INFO","FOOD "+Main4Activity.getRandom_food_all());
+        setYoutubePlayerInit();
         setVolInit();
         setCookingMethodInit();
     }
@@ -77,13 +80,28 @@ public class AnymorePls01Activity extends AppCompatActivity {
 
         youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
-            public void onApiChange(YouTubePlayer youTubePlayer) {
-                super.onApiChange(youTubePlayer);
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 String videoId = Utils.splitIdFromLink(link);
-                youTubePlayer.loadVideo(videoId, 0);
+                try {
+                    youTubePlayer.loadVideo(videoId, 0);
+                }
+                catch (Exception e){
+                    Utils.makeToast("ไม่สามารถเล่นวิดีโอได้", getApplicationContext());
+                }
             }
         });
 
+        youTubePlayerView.addFullScreenListener(new YouTubePlayerFullScreenListener() {
+            @Override
+            public void onYouTubePlayerEnterFullScreen() {
+                Utils.makeToast("เต็มหน้าจอ", getApplicationContext());
+            }
+
+            @Override
+            public void onYouTubePlayerExitFullScreen() {
+                Utils.makeToast(" ออกจากเต็มหน้าจอ", getApplicationContext());
+            }
+        });
     }
 
 
