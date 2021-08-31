@@ -114,7 +114,11 @@ public class Utils {
         }
 
         return bmr;
+    }
 
+    public static String splitIdFromLink(String link) {
+        String[] parts = link.split("=");
+        return parts[1];
     }
 
 

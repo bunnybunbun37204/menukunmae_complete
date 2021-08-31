@@ -9,6 +9,11 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
+import com.wfh.menukunmae.tools.Utils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +22,7 @@ public class AnymorePls01Activity extends AppCompatActivity {
     private View decorView;
     private Dialog myDialog;
     private final int STATUS = Main4Activity.getStatus();
+    private String link;
     private List<String> cooking_vol_string, cooking_method_string = new ArrayList<String>();
 
     @Override
@@ -39,10 +45,12 @@ public class AnymorePls01Activity extends AppCompatActivity {
         if(STATUS == 0) {
             cooking_vol_string = Main4Activity.getRandom_food().getFood_vol();
             cooking_method_string = Main4Activity.getRandom_food().getCooking_method();
+            link = Main4Activity.getRandom_food().getFood_tutorial();
         }
         else if(STATUS == 1) {
             cooking_vol_string = Main4Activity.getRandom_food_all().getFood_vol();
-            cooking_method_string = Main4Activity.getRandom_food().getCooking_method();
+            cooking_method_string = Main4Activity.getRandom_food_all().getCooking_method();
+            link = Main4Activity.getRandom_food_all().getFood_tutorial();
         }
 
         setVolInit();
@@ -57,9 +65,25 @@ public class AnymorePls01Activity extends AppCompatActivity {
     }
 
     private void setCookingMethodInit() {
-        ListView cookingMethodListView = findViewById(R.id.cooking_method);
+        ListView cookingMethodListView = findViewById(R.id.list_cooking_method);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 R.layout.custom_list_item_ingredients, R.id.list_ing_component, cooking_method_string);
+        cookingMethodListView.setAdapter(adapter);
+    }
+
+    private void setYoutubePlayerInit() {
+        YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_view);
+        getLifecycle().addObserver(youTubePlayerView);
+
+        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onApiChange(YouTubePlayer youTubePlayer) {
+                super.onApiChange(youTubePlayer);
+                String videoId = Utils.splitIdFromLink(link);
+                youTubePlayer.loadVideo(videoId, 0);
+            }
+        });
+
     }
 
 

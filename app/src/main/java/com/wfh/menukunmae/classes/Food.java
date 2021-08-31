@@ -76,7 +76,7 @@ public class Food {
                 ", food_cals=" + food_cals +
                 ", food_vol=" + food_vol +
                 ", food_img=" + food_img +
-                "food_tutorial" + food_tutorial +
+                "tutorial" + food_tutorial +
                 '}';
     }
 }
