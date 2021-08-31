@@ -37,7 +37,7 @@
         android:textSize="45sp" />
 
     <TextView
-        android:id="@+id/textVieweq"
+        android:id="@+id/calsText"
         android:layout_width="wrap_content"
         android:layout_height="64dp"
         android:layout_alignParentStart="true"

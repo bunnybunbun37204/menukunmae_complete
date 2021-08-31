@@ -22,7 +22,8 @@ import java.util.List;
 public class Main4Activity extends AppCompatActivity {
 
     private View decorView;
-    private Food random_food, random_food_all;
+    private static int status;
+    private static Food random_food, random_food_all;
     Dialog myDialog;
 
     @Override
@@ -141,16 +142,29 @@ public class Main4Activity extends AppCompatActivity {
             e.printStackTrace();
             random_food = null;
         }
+        status = 0;
     }
 
     private void randomAllFood() {
         List<Food> foods = MainActivity.getFoods();
-
         try {
             random_food_all = Utils.getFoodRandomly(foods);
         } catch (Exception e) {
             e.printStackTrace();
             random_food_all = null;
         }
+        status = 1;
+    }
+
+    public static int getStatus() {
+        return status;
+    }
+
+    public static Food getRandom_food() {
+        return random_food;
+    }
+
+    public static Food getRandom_food_all() {
+        return random_food_all;
     }
 }

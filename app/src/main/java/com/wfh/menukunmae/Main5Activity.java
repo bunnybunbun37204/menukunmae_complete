@@ -2,12 +2,11 @@ package com.wfh.menukunmae;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,7 +18,7 @@ public class Main5Activity extends AppCompatActivity implements AdapterView.OnIt
 
     private View decorView;
     private Dialog myDialog;
-    private String genderString, weightString, heightString, activityString;
+    private String genderString,activityString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +64,23 @@ public class Main5Activity extends AppCompatActivity implements AdapterView.OnIt
 
     public void ShowPopupyx(View view) {
         TextView txtclose03;
+        EditText weightText = findViewById(R.id.kg);
+        EditText heightText = findViewById(R.id.heightz);
+        EditText ageText = findViewById(R.id.years);
+        float weight = Float.parseFloat(weightText.getText().toString());
+        float height = Float.parseFloat(heightText.getText().toString());
+        int age = Integer.parseInt(ageText.getText().toString());
+        String gender = convertStringToEng(genderString);
+        String activity = convertStringToEng(activityString);
+
+        final float BMR = Utils.calculate_BMR(gender, weight, height, age);
+        final float CALS = Utils.calculate_Cals(BMR, activity);
+
         myDialog.setContentView(R.layout.activity_customdialog_showcal);
         txtclose03 = myDialog.findViewById(R.id.txtclose03);
+        TextView txtCals = myDialog.findViewById(R.id.calsText);
+        @SuppressLint("DefaultLocale") final String showCalsText = String.format("%.02f", CALS)+" Kcal";
+        txtCals.setText(showCalsText);
         txtclose03.setOnClickListener(view1 -> myDialog.dismiss());
         myDialog.show();
     }
@@ -111,7 +125,7 @@ public class Main5Activity extends AppCompatActivity implements AdapterView.OnIt
 
     }
 
-    private String convertString(String str){
+    private String convertStringToEng(String str){
         String output = "";
         switch (str) {
             case "เพศชาย":
