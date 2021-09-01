@@ -84,7 +84,7 @@ public class Utils {
     public static float calculate_BMR(String gender, float weight, float height, int age) {
         float bmr;
         if (gender.equals("male")) {
-            bmr = 66 + (13.7f * weight) + (5 * height) - (6.8f * age);
+            bmr = 66 + (13.7f * weight) + (5f * height) - (6.8f * age);
         } else {
             bmr = 665 + (9.6f * weight) + (1.8f * height) - (4.7f * age);
         }

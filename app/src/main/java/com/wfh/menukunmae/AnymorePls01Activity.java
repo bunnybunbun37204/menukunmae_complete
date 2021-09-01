@@ -54,7 +54,6 @@ public class AnymorePls01Activity extends AppCompatActivity {
             cooking_method_string = Main4Activity.getRandom_food_all().getCooking_method();
             link = Main4Activity.getRandom_food_all().getFood_tutorial();
         }
-        Log.i("FOOD-INFO","FOOD "+Main4Activity.getRandom_food_all());
         setYoutubePlayerInit();
         setVolInit();
         setCookingMethodInit();

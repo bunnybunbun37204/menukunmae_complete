@@ -108,7 +108,7 @@ public class Main5Activity extends AppCompatActivity implements AdapterView.OnIt
         }
         else {
             activityString = parent.getSelectedItem().toString();
-            Utils.makeToast("กิจกรรม + "+activityString, getApplicationContext());
+            Utils.makeToast("กิจกรรม "+activityString, getApplicationContext());
         }
 
     }

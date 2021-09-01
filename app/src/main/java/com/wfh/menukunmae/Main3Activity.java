@@ -124,6 +124,7 @@ public class Main3Activity extends AppCompatActivity {
                     if(!ingredientsList.contains(ingredient)){
                         if (ingredients.contains(ingredient)) {
                             ingredientsList.add(ingredient);
+                            Utils.makeToast("เพิ่มวัตถุดิบ "+ingredient+" ลงในรายการวัตถุดิบแล้ว", getApplicationContext());
                             saveIngredientsList(getApplicationContext(), ingredientsList);
                             listIngredientView.setAdapter(ingredientAdapter);
                         }
