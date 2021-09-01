@@ -14,12 +14,14 @@
         android:theme="@style/Theme.Menukunmae"
         android:allowBackup="true">
 
+
         <activity
             android:name=".Leftanymorepls"
             android:exported="true" />
 
         <activity
             android:name=".AnymorePls01Activity"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:exported="true" />
 
         <activity
