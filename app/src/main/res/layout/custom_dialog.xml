@@ -46,7 +46,7 @@
         android:fontFamily="@font/fridaymeduim"
         android:text="สเต็กวัว"
         android:textColor="#FDD26E"
-        android:textSize="45dp" />
+        android:textSize="32dp" />
 
     <TextView
         android:id="@+id/textView4"
